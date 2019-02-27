@@ -239,7 +239,9 @@ void STMClient::main_init( void )
   if ( ioctl( STDIN_FILENO, TIOCGWINSZ, &window_size ) < 0 ) {
     perror( "ioctl TIOCGWINSZ" );
     return;
-  }  
+  }
+
+  window_size.ws_col = window_size.ws_col - 1;
 
   /* local state */
   local_framebuffer = Terminal::Framebuffer( window_size.ws_col, window_size.ws_row );
@@ -404,6 +406,8 @@ bool STMClient::process_resize( void )
     perror( "ioctl TIOCGWINSZ" );
     return false;
   }
+
+  window_size.ws_col = window_size.ws_col - 1;
   
   /* tell remote emulator */
   Parser::Resize res( window_size.ws_col, window_size.ws_row );
