@@ -51,25 +51,6 @@
 #include <termio.h>
 #endif
 
-#if defined HAVE_NCURSESW_CURSES_H
-#  include <ncursesw/curses.h>
-#  include <ncursesw/term.h>
-#elif defined HAVE_NCURSESW_H
-#  include <ncursesw.h>
-#  include <term.h>
-#elif defined HAVE_NCURSES_CURSES_H
-#  include <ncurses/curses.h>
-#  include <ncurses/term.h>
-#elif defined HAVE_NCURSES_H
-#  include <ncurses.h>
-#  include <term.h>
-#elif defined HAVE_CURSES_H
-#  include <curses.h>
-#  include <term.h>
-#else
-#  error "SysV or X/Open-compatible Curses header file required"
-#endif
-
 static void print_version( FILE *file )
 {
   fputs( "mosh-client (" PACKAGE_STRING ") [build " BUILD_VERSION "]\n"
@@ -89,7 +70,7 @@ static void print_usage( FILE *file, const char *argv0 )
 static void print_colorcount( void )
 {
   /* check colors */
-  setupterm((char *)0, 1, (int *)0);
+  /*setupterm((char *)0, 1, (int *)0);
 
   char colors_name[] = "colors";
   int color_val = tigetnum( colors_name );
@@ -98,7 +79,7 @@ static void print_colorcount( void )
 	     colors_name );
   }
 
-  printf( "%d\n", color_val );
+  printf( "%d\n", color_val );*/
 }
 
 #ifdef NACL
